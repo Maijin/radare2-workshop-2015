@@ -1,6 +1,5 @@
 \documentclass[10pt, compress]{beamer}
 
-
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
 \usepackage{url}
@@ -11,7 +10,7 @@
 
 \title{Radare2}
 \subtitle{First r2babies steps - Long Version}
-\author{Maxime Morin (@Maijin212)}
+\author{Maxime Morin (@Maijin212), Anton Kochkov (@akochkov)}
 \date{\today}
 \institute{BSides Las Vegas}
 
@@ -402,6 +401,33 @@ This command is same as rahash2 -a sha1 file.exe
   \frametitle{Ragg2/Ragg2-cc}
   \center\textbf{Ragg2/Ragg2-cc} — frontend for compiling shellcodes
   \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Debugging}
+  \begin{itemize}
+	\item Native local debug (r2 -d)
+	\item r2 agent (rap:// protocol)
+	\item GDB remote protocol support
+	\item WinDBG remote protocol support
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Native debug}
+  \center Better to use the visual mode
+  \begin{figure}
+  \includegraphics[width=\textwidth]{r2-nativedebug.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Scripting Capabilities}
+  \center Available for a lot of programming languages
+  \center\textbf{Radare2 Bindings} —
+  \center\textbf{R2Pipe} —
+  \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
+  \item Demo time !
 \end{frame}
 
 \begin{frame}[fragile]
