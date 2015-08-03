@@ -9,7 +9,6 @@
 \graphicspath{ {./pix/} }
 \usetheme[useTitleProgressBar]{m}
 
-
 \title{Radare2}
 \subtitle{First r2babies steps - Long Version}
 \author{Maxime Morin (@Maijin212)}
@@ -50,12 +49,11 @@
   \frametitle{Installation}
   \begin{itemize}
   \item Always use git version!
-  \item Use the provided VM on SSH (\alert{radare:radare} / \alert{root:root})
+  \item Use the provided VM on SSH (\alert{radare:radare} / \alert{root:radare})
   \item git clone \alert{http://github.com/radare/radare2 \&\& cd radare2 \&\& ./sys/install.sh}
   \item Use the Windows installer \alert{http://bin.rada.re/radare2.exe}
   \end{itemize}
 \end{frame}
-
 
 \section{Utilities}
 
@@ -348,11 +346,8 @@ This command is same as rahash2 -a sha1 file.exe
   \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Radare2 — Debugger}
-\end{frame}
-
 \section{Radare2 — Debugger}
+
 \begin{frame}[fragile]
   \frametitle{Radare2 — Debugger}
   \begin{enumerate}
@@ -414,7 +409,10 @@ This command is same as rahash2 -a sha1 file.exe
     \begin{itemize}
     \item \alert{Crackmes:} IOLI-Crackme, flare-on 2015 challenges
     \item \alert{Exploitation:} pwn1, pwn2, ropasaurus
-    \item \alert{Book:}
+    \item \alert{Malware(1/3):} Practical malware analysis samples
+    \item \alert{Malware(2/3):} Any RAT samples see decoder on: TODO
+    \item \alert{Malware(3/3):} AVCaesar.lu, MalekalDB, TODO
+    \item \alert{Firmware/BIOS/UEFI:} TODO
     \end{itemize}
 \end{frame}
 
@@ -427,13 +425,14 @@ This command is same as rahash2 -a sha1 file.exe
     \end{itemize}
 \end{frame}
 
+\section{Exploitation (jvoisin work :-) )}
+
 \begin{frame}[fragile]
 	\begin{center}
 		\includegraphics[width=\textwidth]{regstacklisting.png}
 	\end{center}
 \end{frame}
 
-% What is a stack
 \begin{frame}{Stack}
 	\begin{center}
 	\begin{tikzpicture}[scale=0.75]
@@ -454,7 +453,6 @@ This command is same as rahash2 -a sha1 file.exe
 	\end{center}
 \end{frame}
 
-% Mention Aleph One
 \begin{frame}{Stack smashing}
 	\begin{center}
 		\begin{columns}
@@ -466,23 +464,6 @@ This command is same as rahash2 -a sha1 file.exe
 				\only<2>{\includegraphics[height=6.5cm]{overflow3.png}}
 			\end{column}
 		\end{columns}
-	\end{center}
-\end{frame}
-
-% This is needed later for system-wide ASLR bypass
-\begin{frame}{ASLR and GOT}
-	\begin{center}
-	\only<1>{\includegraphics[height=6cm]{got.png}}
-	\only<2>{
-		\begin{columns}
-			\begin{column}{.5\textwidth}
-				\includegraphics[width=\textwidth]{plt_before.png}
-			\end{column}
-			\begin{column}{.5\textwidth}
-				\includegraphics[width=\textwidth]{plt_after.png}
-			\end{column}
-		\end{columns}
-	}
 	\end{center}
 \end{frame}
 
@@ -533,6 +514,22 @@ This command is same as rahash2 -a sha1 file.exe
 
 \begin{frame}{Show me yours, I'll show you mine}
 	\includegraphics[width=1.05\textwidth,height=4.5cm]{exploit_pwn1.png}
+\end{frame}
+
+\section{Malware Analysis}
+
+\begin{frame}[fragile]
+  \frametitle{Other r2 commands I use frequently at work}
+  \begin{enumerate}
+   \item \#?
+   \item ?d, i?
+   \item Visual mode and associated (VVV, Vv, ;, ...)
+   \item Analysis command (axt, agf, ...)
+   \item /m?, /C?, pf, px?, p6d, p=
+   \item yara, zF
+   \item pr, wt
+   \item basic zsh/bash scripting, r2-pipe
+ \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]
