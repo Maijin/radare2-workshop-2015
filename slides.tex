@@ -6,7 +6,7 @@
 \usepackage{ drawstack }
 
 \graphicspath{ {./pix/} }
-\usetheme[useTitleProgressBar]{m}
+%\usetheme[useTitleProgressBar]{m}
 
 \title{Radare2}
 \subtitle{First r2babies steps - Long Version}
@@ -416,10 +416,105 @@ This command is same as rahash2 -a sha1 file.exe
 \begin{frame}[fragile]
   \frametitle{Native debug}
   \center Better to use the visual mode
+  \center r2 -d /bin/ls
   \begin{figure}
   \includegraphics[width=\textwidth]{r2-nativedebug.png}
   \end{figure}
 \end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{GDB protocol}
+  \center Just run gdbserver somewhere
+  \center and connect r2 to it:
+  \center r2 -D gdb -d /bin/ls gdb://99.44.23.50:4589
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{GDB protocol + Wine}
+  \center Winedbg allows to run windows command
+  \center using the gdbserver too:
+  \center winedbg --gdb --no-start malware.exe
+  \center r2 -a x86 -b 32 -D gdb -d malware.exe gdb://localhost:44840
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{WinDBG}
+  \center r2 allows to connect WinDBG/KD
+  \center For example, to debug windows kernel via the serial port:
+  \center bcdedit /debug on
+  \center bcdedit /dbgsettings serial debugport:1 baudrate:115200
+  \center then connect r2:
+  \center r2 -a x86 -b 32 -D wind windbg:///tmp/windbg.pipe
+  \center For now, connecting to the QEMU and VirtualBox are tested
+% More information here https://github.com/radare/radare2/blob/master/doc/windbg
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Debugging OMAP BootRom}
+  \center Just run it in the modified qemu https://github.com/XVilka/qemu
+  \center ./configure --target-list=arm-softmmu ; make ; sudo make install
+  \center qemu-system-arm -M milestone -m 256 -L . -bios bootrom.bin -mtdblock	mbmloader-1.raw -d in_asm,cpu,exec -nographic -s -S
+  \center r2 -D gdb -b arm gdb://localhost:9999
+  \center Same approach could be used for any customized hardware
+\end{frame}
+
+% show demo here - demos/demo1_arm_boot
+
+\begin{frame}[fragile]
+  \frametitle{GDB protocol + Wine}
+  \center Winedbg allows to run windows command
+  \center using the gdbserver too:
+  \center winedbg --gdb --no-start malware.exe
+  \center r2 -a x86 -b 32 -D gdb -d malware.exe gdb://localhost:44840
+\end{frame}
+
+\section{Firmware analysis}
+\begin{frame}[fragile]
+  \frametitle{UEFI analysis}
+  \begin{itemize}
+    \item Dump the image using flashrom or hardware
+	\item Unpack the image using UEFITool
+	\item Open the selected PE or TE file using r2
+  \end{itemize}
+\end{frame}
+
+% show demo here - demos/demo3_x86_uefi
+% download UEFITool here https://github.com/LongSoft/UEFITool
+
+\begin{frame}[fragile]
+  \frametitle{Old legacy BIOS analysis}
+  % This shows the example of talking to the SMBus
+  \begin{itemize}
+    \item Load the whole image or unpack it using bios_extract
+	\item Open it using the correct segment and offset
+	\item r2 load the whole BIOS image automatically
+	\item r2 asrock_p4i65g.bin
+	\item [0000000] . asrock_p4i65g.r2
+  \end{itemize}
+\end{frame}
+
+% show demo here - demos/demo3_x86_legacy
+% download bios_extract here http://www.coreboot.org/Bios_extract
+
+\begin{frame}[fragile]
+  \frametitle{Embedded controller - 8051}
+  \center Lets start from the static analysis
+  \center r2 -a 8051 ite_it8502.rom
+  \center . ite_it8502.r2
+\end{frame}
+
+% show demo here - demos/demo5_it8502e
+
+\begin{frame}[fragile]
+  \frametitle{Embedded controller - 8051}
+  \center Lets start from the static analysis
+  \center r2 -a 8051 ite_it8502.rom
+  \center . ite_it8502.r2
+  \center run 'des' command now:
+\end{frame}
+% show demo here (if 'des' without '-d' will be fixed
+
+% or may be show the example from here? http://radare.tv/a/44
 
 \begin{frame}[fragile]
   \frametitle{Scripting Capabilities}
