@@ -453,7 +453,7 @@ This command is same as rahash2 -a sha1 file.exe
   \frametitle{Debugging OMAP BootRom}
   \center Just run it in the modified qemu https://github.com/XVilka/qemu
   \center ./configure --target-list=arm-softmmu ; make ; sudo make install
-  \center qemu-system-arm -M milestone -m 256 -L . -bios bootrom.bin -mtdblock	mbmloader-1.raw -d in_asm,cpu,exec -nographic -s -S
+  \center qemu-system-arm -M milestone -m 256 -L . -bios bootrom.bin -mtdblock	mbmloader-1.raw -d in\_asm,cpu,exec -nographic -s -S
   \center r2 -D gdb -b arm gdb://localhost:9999
   \center Same approach could be used for any customized hardware
 \end{frame}
@@ -485,11 +485,11 @@ This command is same as rahash2 -a sha1 file.exe
   \frametitle{Old legacy BIOS analysis}
   % This shows the example of talking to the SMBus
   \begin{itemize}
-    \item Load the whole image or unpack it using bios_extract
+    \item Load the whole image or unpack it using bios\_extract
 	\item Open it using the correct segment and offset
 	\item r2 load the whole BIOS image automatically
-	\item r2 asrock_p4i65g.bin
-	\item [0000000] . asrock_p4i65g.r2
+	\item r2 asrock\_p4i65g.bin
+	\item [0000000] . asrock\_p4i65g.r2
   \end{itemize}
 \end{frame}
 
@@ -499,8 +499,8 @@ This command is same as rahash2 -a sha1 file.exe
 \begin{frame}[fragile]
   \frametitle{Embedded controller - 8051}
   \center Lets start from the static analysis
-  \center r2 -a 8051 ite_it8502.rom
-  \center . ite_it8502.r2
+  \center r2 -a 8051 ite\_it8502.rom
+  \center . ite\_it8502.r2
 \end{frame}
 
 % show demo here - demos/demo5_it8502e
@@ -508,8 +508,8 @@ This command is same as rahash2 -a sha1 file.exe
 \begin{frame}[fragile]
   \frametitle{Embedded controller - 8051}
   \center Lets start from the static analysis
-  \center r2 -a 8051 ite_it8502.rom
-  \center . ite_it8502.r2
+  \center r2 -a 8051 ite\_it8502.rom
+  \center . ite\_it8502.r2
   \center run 'des' command now:
 \end{frame}
 % show demo here (if 'des' without '-d' will be fixed
