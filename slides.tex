@@ -4,6 +4,7 @@
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
 \usepackage{url}
+\usepackage{ drawstack }
 
 \graphicspath{ {./pix/} }
 \usetheme[useTitleProgressBar]{m}
@@ -406,16 +407,15 @@ This command is same as rahash2 -a sha1 file.exe
   \frametitle{Ragg2/Ragg2-cc}
   \center\textbf{Ragg2/Ragg2-cc} — frontend for compiling shellcodes
   \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-  \item Demo time !
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Scripting Capabilities}
-  \center Available for a lot of programming languages
-  \center\textbf{Radare2 Bindings} —
-  \center\textbf{R2Pipe} —
-  \noindent\makebox[\linewidth]{\rule{\paperwidth}{0.4pt}}
-  \item Demo time !
+  \frametitle{Now your turn!}
+    \begin{itemize}
+    \item \alert{Crackmes:} IOLI-Crackme, flare-on 2015 challenges
+    \item \alert{Exploitation:} pwn1, pwn2, ropasaurus
+    \item \alert{Book:}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -427,6 +427,121 @@ This command is same as rahash2 -a sha1 file.exe
     \end{itemize}
 \end{frame}
 
-\plain{Now your turn !}
+\begin{frame}[fragile]
+	\begin{center}
+		\includegraphics[width=\textwidth]{regstacklisting.png}
+	\end{center}
+\end{frame}
+
+% What is a stack
+\begin{frame}{Stack}
+	\begin{center}
+	\begin{tikzpicture}[scale=0.75]
+		\small
+		\stacktop{}
+		\startframe
+		\padding{1}{...}
+		\padding{1}{...}
+		\padding{1}{...}
+		\finishframe{stack frame 1}
+		\startframe
+		\padding{1}{...}
+		\padding{1}{...}
+		\padding{1}{...}
+		\finishframe{stack frame 2}
+		\stackbottom{}
+	\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+% Mention Aleph One
+\begin{frame}{Stack smashing}
+	\begin{center}
+		\begin{columns}
+			\begin{column}{.5\textwidth}
+				\includegraphics[height=6.5cm]{overflow1.png}
+			\end{column}
+			\begin{column}{.5\textwidth}
+				\only<1>{\includegraphics[height=6.5cm]{overflow2.png}}
+				\only<2>{\includegraphics[height=6.5cm]{overflow3.png}}
+			\end{column}
+		\end{columns}
+	\end{center}
+\end{frame}
+
+% This is needed later for system-wide ASLR bypass
+\begin{frame}{ASLR and GOT}
+	\begin{center}
+	\only<1>{\includegraphics[height=6cm]{got.png}}
+	\only<2>{
+		\begin{columns}
+			\begin{column}{.5\textwidth}
+				\includegraphics[width=\textwidth]{plt_before.png}
+			\end{column}
+			\begin{column}{.5\textwidth}
+				\includegraphics[width=\textwidth]{plt_after.png}
+			\end{column}
+		\end{columns}
+	}
+	\end{center}
+\end{frame}
+
+\section{Pwn1}
+\begin{frame}{Pwn1}
+	\begin{itemize}
+		\item Written for this workshop
+		\item Oldschool \emph{classic} example
+		\item You'll write the final exploit
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Hu-ho.}
+	\includegraphics[width=\textwidth,height=6.5cm]{segfault_pwn1.png}
+\end{frame}
+
+% Explain what a De Bruijn pattern is
+\begin{frame}{De Bruijn patterns}
+	\includegraphics[width=\textwidth,height=6.5cm]{bruijn.png}
+\end{frame}
+
+\begin{frame}{Exploit!}
+	\begin{columns}
+		\begin{column}{.3\textwidth}
+			\begin{itemize}
+				\item No ALSR
+				\item No NX
+				\item No Canary
+			\end{itemize}
+		\end{column}
+		\begin{column}{.7\textwidth}
+			\includegraphics[width=\textwidth,height=2cm]{pwn1_shellcode.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Generate shellcode}
+	\includegraphics[width=\textwidth]{binsh.png}
+	\vskip.5cm
+	\includegraphics[width=\textwidth]{rop_pwn1.png}
+\end{frame}
+
+\begin{frame}{Your turn!}
+	\begin{center}
+		Write a working exploit!
+	\end{center}
+\end{frame}
+
+\begin{frame}{Show me yours, I'll show you mine}
+	\includegraphics[width=1.05\textwidth,height=4.5cm]{exploit_pwn1.png}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Documentation}
+    \begin{itemize}
+    \item \alert{Website:} http://rada.re/
+    \item \alert{Blog:} http://radare.today
+    \item \alert{Book:} http://maijin.gitbooks.io/radare2book/content/
+    \end{itemize}
+\end{frame}
 
 \end{document}
