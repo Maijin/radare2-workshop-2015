@@ -510,7 +510,23 @@ This command is same as rahash2 -a sha1 file.exe
 \end{frame}
 
 % show demo here - demos/demo3_x86_uefi
-% download UEFITool here https://github.com/LongSoft/UEFITool
+% Before starting, you can mention, that we need full UEFI image from the SPI flash
+% We'll use the ready dump, but at home, they can run 'flashrom' tool on their
+% computers, to dump the image, using the 'internal' programmer, or any external one.
+% After the modification with r2 and UEFITool they can flash it back using the same
+% programmer and flashrom. Also please say, that this can brick their computers,
+% so better not to start without backup (external programmer) or if they
+% are adventurous enough.
+% 1. download UEFITool here https://github.com/LongSoft/UEFITool
+% 2. run 'qmake' in its sources
+% 3. run 'make' in its sources
+% 4. run resulting 'UEFITool' binary, choose 'Open image' -> hp_image.bin
+% 5. show the tree, find some example e.g. 'PchInit' module, choose 'Extract body'
+% and save it to the file, 'PchInit.efi' (tell that those EFI files are simple PE)
+% 6. Open that file in the radare2: 'r2 -w PchInit.efi'
+% 7. Patch some commands/data in it, write, exit r2
+% 8. Open UEFITool again, choose 'Replace body', open that changed 'PchInit.efi'
+% 9. Save the resulting image into the new file, e.g. hp_image_mod.bin
 
 \begin{frame}[fragile]
   \frametitle{Old legacy BIOS analysis}
