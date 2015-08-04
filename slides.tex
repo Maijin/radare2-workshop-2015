@@ -307,6 +307,23 @@ This command is same as rahash2 -a sha1 file.exe
 \end{frame}
 
 \begin{frame}[fragile]
+  \frametitle{The t command — types management}
+  \begin{enumerate}
+  \item Get Usage on the command \alert{t?}
+  \item 'to' to load the types from the C header file
+  \item tl link type to the memory, tf shows it like the pf
+  \item add 'j' to get the output in the json format
+ \end{enumerate}
+\end{frame}
+
+% This demo is in demos/demo3_x86_legacy
+% []> to asrock_p4i65g.h
+\begin{frame}[fragile]
+  \frametitle{Radare2 - types command example}
+  Quick Demo
+\end{frame}
+
+\begin{frame}[fragile]
   \frametitle{Radare2 — CLI Main commands}
   \begin{enumerate}
    \item r2 -A or r2 then aaa : Analysis
@@ -506,15 +523,29 @@ This command is same as rahash2 -a sha1 file.exe
 % show demo here - demos/demo5_it8502e
 
 \begin{frame}[fragile]
-  \frametitle{Embedded controller - 8051}
+  \frametitle{Embedded controller - 8051 - ESIL VM}
   \center Lets start from the static analysis
   \center r2 -a 8051 ite\_it8502.rom
   \center . ite\_it8502.r2
-  \center run 'des' command now:
+  \center run 'aei' command to init ESIL VM
+  \center run 'aeim' command to init ESIL VM stack
+  \center run 'aeip' command to start from the current offset
+  \center run 'aecu [addr]' to emulate until the [addr] is reached
 \end{frame}
-% show demo here (if 'des' without '-d' will be fixed
+% show demo here
+% Reference to the example from here? http://radare.tv/a/44
 
-% or may be show the example from here? http://radare.tv/a/44
+\begin{frame}[fragile]
+  \frametitle{Embedded controller - 8051 - ESIL2REIL}
+  \center Lets start again from the same place
+  \center r2 -a 8051 ite\_it8502.rom
+  \center . ite\_it8502.r2
+  \center run 'pae' to show the esil expression
+  \center run 'aetr' to convert the esil output to REIL
+  \center store this to some file and use the 'openreil' utility to SMT it
+\end{frame}
+% reference to the https://github.com/Cr4sh/openreil
+% what about some demo for that?
 
 \begin{frame}[fragile]
   \frametitle{Scripting Capabilities}
