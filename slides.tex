@@ -317,7 +317,21 @@ This command is same as rahash2 -a sha1 file.exe
 \end{frame}
 
 % This demo is in demos/demo3_x86_legacy
-% []> to asrock_p4i65g.h
+% 1. Open 'r2 -a x86 asrock_p4i65g.bin'  - it should recognize legacy BIOS format automatically
+% (x86, 16bit)
+% 2.'[f000:fff0]> . asrock_p4i65g.r2' - add some comments and functions in the loaded fresh file
+% 3.'[f000:4736]> to asrock_p4i65g.h'
+% 4.'[f000:4736]> t' - list all loaded types
+% 5.'[f000:4736]> s SIO_Init' - go to the SIO_Init() function address
+% 6.'[f000:5c93]> Vp' - show the code, tell that lines mov si, 0x5c50 ; lodsw ax, word cs:[si] is
+% actually reading some data, after some background research we've found this is a table of the
+% SuperIO registers, so we can apply structure here, to see the values
+% 7.'[f000:5c93]> tl SIO_reg_mask 0xf000:0x5c50' - link the structure 'SIO_reg_mask' to the 0xf000:0xfc50 address
+% 8.'[f000:5c93]> tf 0xf000:0x5c50' - shows the values (be careful, there is a bug, don't attract
+% attention that it shows dwords instead of chars (should be char) from the structure description.
+
+% Additional information here http://radare.today/types/
+
 \begin{frame}[fragile]
   \frametitle{Radare2 - types command example}
   Quick Demo
