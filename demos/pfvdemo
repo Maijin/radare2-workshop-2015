@@ -1,1 +1,0 @@
-pr `pfv.pe_nt_image_headers32.optionalHeader.dataDirectory[4].size @ pe_nt_image_headers32` @ `pfv.pe_nt_image_headers32.optionalHeader.dataDirectory[4].virtualAddress @ pe_nt_image_headers32`+8 > pe_certificate ; !openssl pkcs7 -inform DER -print_certs -text -in pe_certificate
