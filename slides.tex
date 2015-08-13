@@ -1,18 +1,68 @@
-\documentclass[10pt, compress]{beamer}
-
+\documentclass[10pt,pdf,utf8,english,compress,hyperref={unicode}]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[backend=biber,style=authoryear]{biblatex}
 \usepackage{booktabs}
 \usepackage[scale=2]{ccicons}
 \usepackage{url}
+\usepackage{hyperref}
 \usepackage{ drawstack }
 
 \graphicspath{ {./pix/} }
 \usetheme[useTitleProgressBar]{m}
+
+% ------ Embed URL in the reference title ------
+
+\renewbibmacro*{url+urldate}{}
+
+\newbibmacro{string+doiurl}[1]{%
+	\iffieldundef{doi}{%
+		\iffieldundef{url}{%
+			#1%
+		}{%
+			\href{\thefield{url}}{#1}%
+		}%
+	}{%
+		\href{http://dx.doi.org/\thefield{doi}}{#1}%
+	}%
+}
+
+\DeclareFieldFormat{title}{\usebibmacro{string+doiurl}{\mkbibemph{#1}}}
+\DeclareFieldFormat[article,incollection]{title}{\usebibmacro{string+doiurl}{\mkbibemph{#1}}}
+
+% ------ Nice and shiny bibliography list -------
+
+\setbeamertemplate{bibliography item}{%
+	\ifboolexpr{test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+	or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+	or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+	{\setbeamertemplate{bibliography item}[book]}
+	{\ifentrytype{online}
+		{\setbeamertemplate{bibliography item}[online]}
+		{\setbeamertemplate{bibliography item}[article]}}%
+	\usebeamertemplate{bibliography item}}
+
+\defbibenvironment{bibliography}
+	{\list{}
+		{\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+		\setlength{\leftmargin}{\labelwidth}%
+		\setlength{\labelsep}{\biblabelsep}%
+		\addtolength{\leftmargin}{\labelsep}%
+		\setlength{\itemsep}{\bibitemsep}%
+		\setlength{\parsep}{\bibparsep}}}
+	{\endlist}
+	{\item}
+
+% ------ Document starting here -------
+
 
 \title{Radare2}
 \subtitle{First r2babies steps - Long Version}
 \author{Maxime Morin (@Maijin212), Anton Kochkov (@akochkov)}
 \date{\today}
 \institute{BSides Las Vegas}
+
+\addbibresource{refs.bib}
 
 \begin{document}
 \maketitle
@@ -304,7 +354,7 @@ This command is same as rahash2 -a sha1 file.exe
 % Show Corkami PE101, ELF101,...
 % Show r2 -nn on PE or an ELF
 % If time explain how to parse a file format taking a PE/ELF header example (magic)
-% Mention 010 editor 
+% Mention 010 editor
 
 \begin{frame}[fragile]
   \frametitle{Radare2 — 'Major' command example: pf}
@@ -315,7 +365,7 @@ This command is same as rahash2 -a sha1 file.exe
 \begin{frame}[fragile]
   \frametitle{The t command — types management}
   \begin{enumerate}
-  \item Get Usage on the command \alert{t?}
+  \item Get Usage on the command \alert{t?} \footfullcite{r2types}
   \item \alert{to} to load the types from the C header file
   \item \alert{tl} link type to the memory, \alert{tf} shows it like the pf
   \item add \alert{j} to get the output in the json format
@@ -477,7 +527,7 @@ This command is same as rahash2 -a sha1 file.exe
 
 \begin{frame}[fragile]
   \frametitle{WinDBG}
-  \center r2 allows to connect WinDBG/KD
+  \center r2 allows to connect WinDBG/KD \footfullcite{r2windbg}
   \center For example, to debug windows kernel via the serial port:
   \center bcdedit /debug on
   \center bcdedit /dbgsettings serial debugport:1 baudrate:115200
@@ -533,7 +583,7 @@ This command is same as rahash2 -a sha1 file.exe
     \begin{itemize}
     \item \alert{Website:} http://rada.re/
     \item \alert{Blog:} http://radare.today
-    \item \alert{Book:} http://maijin.gitbooks.io/radare2book/content/
+    \item \alert{Book:} http://radare.gitbooks.io/radare2book/content/
     \end{itemize}
 \end{frame}
 
@@ -650,7 +700,7 @@ This command is same as rahash2 -a sha1 file.exe
   \frametitle{UEFI analysis}
   \begin{itemize}
     \item Dump the image using flashrom or hardware
-	\item Unpack the image using UEFITool
+	\item Unpack the image using UEFITool \footfullcite{uefitool}
 	\item Open the selected PE or TE file using r2
   \end{itemize}
 \end{frame}
@@ -678,7 +728,7 @@ This command is same as rahash2 -a sha1 file.exe
   \frametitle{Old legacy BIOS analysis}
   % This shows the example of talking to the SMBus
   \begin{itemize}
-    \item Load the whole image or unpack it using bios\_extract
+    \item Load the whole image or unpack it using bios\_extract \footfullcite{bios-extract}
 	\item Open it using the correct segment and offset
 	\item r2 load the whole BIOS image automatically
 	\item r2 asrock\_p4i65g.bin
@@ -700,7 +750,7 @@ This command is same as rahash2 -a sha1 file.exe
 
 \begin{frame}[fragile]
   \frametitle{Embedded controller - 8051 - ESIL VM}
-  \center Lets start from the static analysis
+  \center Lets start from the static analysis \foootfullcite{r2esiltv}
   \center r2 -a 8051 ite\_it8502.rom
   \center . ite\_it8502.r2
   \center run 'e io.cache=true' to use the cache for write operations
@@ -735,5 +785,12 @@ This command is same as rahash2 -a sha1 file.exe
     \item \alert{Book:} http://maijin.gitbooks.io/radare2book/content/
     \end{itemize}
 \end{frame}
+
+\section{References}
+\begin{frame}[allowframebreaks]
+	\frametitle{A lot of them}
+	\printbibliography
+\end{frame}
+
 
 \end{document}
